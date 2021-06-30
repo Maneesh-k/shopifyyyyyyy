@@ -1,34 +1,12 @@
 const express = require('express');
-const request = require('request');
+const shopifyRoutes = require('./routes/shopifyRoutes');
 
 const app = express();
-const router = express.Router();
 
-const redirectTO = (req, res) => {
-  //res.redirect('https://node-task-deploy.herokuapp.com/api/v1/storedata', 302);
+// Body parser, reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
 
-  request(
-    'https://node-task-deploy.herokuapp.com/api/v1/storedata',
-    (error, response, body) => {
-      if (error) {
-        res.status(404).json({
-          Status: 'fail',
-        });
-      } else {
-        res.status(200).json({
-          status: 'sucess',
-          data: body,
-        });
-      }
-    },
-  );
-};
+//ROUTES
+app.use('/', shopifyRoutes);
 
-const redirect = router.get('', redirectTO);
-
-app.use('/', redirect);
-
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;
