@@ -1,27 +1,27 @@
 const express = require('express');
-const request=require('request');
+const request = require('request');
 
 const app = express();
 const router = express.Router();
 
 const redirectTO = (req, res) => {
-  request('https://node-task-deploy.herokuapp.com/api/v1/storedata',  (error, response, body) => {
-    
-        if(error) {
-             
-            res.status(404).json({
-                Status:'fail'
-            })
-        }        
-        else {
-            res.status(200).json({
-                status:'sucess',
-                data:body
-            })
-        }
-    });
-  
+  //res.redirect('https://node-task-deploy.herokuapp.com/api/v1/storedata', 302);
 
+  request(
+    'https://node-task-deploy.herokuapp.com/api/v1/storedata',
+    (error, response, body) => {
+      if (error) {
+        res.status(404).json({
+          Status: 'fail',
+        });
+      } else {
+        res.status(200).json({
+          status: 'sucess',
+          data: body,
+        });
+      }
+    },
+  );
 };
 
 const redirect = router.get('', redirectTO);
