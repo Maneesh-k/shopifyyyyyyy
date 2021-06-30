@@ -7,12 +7,11 @@ exports.getApi = (req, res) => {
         const data=JSON.parse(body)
       if (error) {
         res.status(404).json({
-          status: false,
+          status:"fail"
         });
       } else {
         res.status(200).json({
-          status: true,
-          data:data.data,
+          status:"sucess"
           result:data.result
         });
       }
