@@ -11,7 +11,7 @@ exports.getApi = (req, res) => {
         });
       } else {
         res.status(200).json({
-          status:"sucess"
+          status:"sucess",
           result:data.result
         });
       }
